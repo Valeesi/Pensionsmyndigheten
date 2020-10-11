@@ -2,7 +2,6 @@
 
 import argparse
 import datetime
-import time
 import sys
 import os
 
@@ -17,11 +16,13 @@ def build_arg_parser():
     return parser
 
 
-def check_if_days_valid(days):
+def get_number_of_days(days):
     try:
         days = int(days)
         if 0 > days or days > 365 * 50:
             sys.exit("Invalid input. Number of days must be a natural number between 0 and 18250 (50 years)")
+        else:
+            return days
     except ValueError as err:
         sys.exit("ValueError: " + str(err))
 
@@ -32,7 +33,7 @@ def check_if_path_valid(path):
 
 
 def get_cutoff_time_from_now(days):
-    return datetime.datetime.now() - datetime.timedelta(days=int(days))
+    return datetime.datetime.now() - datetime.timedelta(days=days)
 
 
 def get_all_files_from_path(path):
@@ -67,7 +68,7 @@ def get_files_before_cutoff_time(files, cutoff_time):
 
 
 def print_files_by_mtime(path, days, include_hidden):
-    check_if_days_valid(days)
+    days = get_number_of_days(days)
     check_if_path_valid(path)
 
     cutoff_time = get_cutoff_time_from_now(days)
