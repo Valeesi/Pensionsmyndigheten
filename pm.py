@@ -27,9 +27,11 @@ def get_number_of_days(days):
         sys.exit("ValueError: " + str(err))
 
 
-def check_if_path_valid(path):
+def check_if_dir_valid(path):
     if not os.path.isdir(path):
         sys.exit("-p must be a valid directory path.")
+    else:
+        return True
 
 
 def get_cutoff_time_from_now(days):
@@ -67,11 +69,9 @@ def get_files_before_cutoff_time(files, cutoff_time):
         lambda f: get_mtime_from_file(f) <= cutoff_time, files))
 
 
-def print_files_by_mtime(path, days, include_hidden):
-    days = get_number_of_days(days)
-    check_if_path_valid(path)
+def print_files_by_mtime(path, cutoff_time, include_hidden):
+    check_if_dir_valid(path)
 
-    cutoff_time = get_cutoff_time_from_now(days)
     os.chdir(path)
     files = get_all_files_from_path(path)
     files_before_cutoff_time = get_files_before_cutoff_time(files, cutoff_time)
@@ -87,4 +87,5 @@ def print_files_by_mtime(path, days, include_hidden):
 
 if __name__ == "__main__":
     args = build_arg_parser().parse_args()
-    print_files_by_mtime(args.path, args.days, args.include_hidden)
+    cutoff = get_cutoff_time_from_now(get_number_of_days(args.days))
+    print_files_by_mtime(args.path, cutoff, args.include_hidden)
