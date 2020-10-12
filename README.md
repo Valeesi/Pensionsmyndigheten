@@ -1,5 +1,5 @@
 # Pensionsmyndigheten's test
-The test requires development of a script which is able to probe a directory for files that have not been modified in the last X days. It requires the output to be consistd of names of eligible files sorted by their modified times. The solution is given preemptively (due to security concerns) below in the form of a markdown document oppose to the actual scripts. 
+The test requires development of a script which is able to probe a directory for files that have not been modified in the last X days. It requires the output to be consisted of names of eligible files sorted by their modified times. The solution is given preemptively (due to security concerns) below in the form of a markdown document oppose to the actual scripts. 
 
 ## Original problem description
 ```
